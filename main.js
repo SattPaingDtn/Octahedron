@@ -110,3 +110,25 @@ window.addEventListener("mousemove", (e) => {
     });
   }
 });
+
+// Touch animation color for mobile
+let touchStart = false
+window.addEventListener("touchstart",()=>(touchStart=true));
+window.addEventListener("touchend",()=>(touchStart=false));
+
+window.addEventListener("touchmove",(e)=>{
+  if(touchStart) {
+    rgb = [
+      Math.floor(Math.random() * 256),
+      Math.floor(Math.random() * 256),
+      Math.floor(Math.random() * 256),
+    ];
+    // let's animate
+    let newColor = new THREE.Color(`rgb(${rgb.join(",")})`);
+    gsap.to(mesh.material.color, {
+      r: newColor.r,
+      g: newColor.g,
+      b: newColor.b,
+    });
+  }
+})
