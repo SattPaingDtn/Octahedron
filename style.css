@@ -34,7 +34,7 @@ nav a{
 nav ul{
     list-style: none;
     display: flex;
-    gap: 4rem;
+    gap: 2rem;
 }
 
 .title{
@@ -43,8 +43,8 @@ nav ul{
     position: absolute;
     font-size: 3rem;
     left: 50%;
-    top: 75%;
-    transform: translate(-50%,-75%);
+    top: 85%;
+    transform: translate(-50%,-85%);
 }
 
 @media only screen and (max-width: 600px) {
@@ -56,5 +56,7 @@ nav ul{
     }
     .title{
         font-size: 1rem;
+        top: 75%;
+        transform: translate(-50%,-75%);
     }
 }

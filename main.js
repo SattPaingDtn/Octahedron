@@ -7,13 +7,36 @@ import gsap from "gsap";
 const scene = new THREE.Scene();
 
 // Create our sphere
-const geometry = new THREE.OctahedronGeometry(2,0);
+const geometry = new THREE.OctahedronGeometry(2, 0);
 const material = new THREE.MeshStandardMaterial({
   color: "#967259",
-  roughness: 0.5
+  roughness: 0.5,
 });
 const mesh = new THREE.Mesh(geometry, material);
 scene.add(mesh);
+
+// Create Particles
+const particleShape = new THREE.CircleGeometry(1, 16);
+const particleGeometry = new THREE.BufferGeometry();
+const positions = [];
+for (var i = 0; i < 7000; i++) {
+  positions.push(
+    Math.random() * 200 - 100,
+    Math.random() * 200 - 100,
+    Math.random() * 200 - 100
+  );
+}
+particleGeometry.setAttribute(
+  "position",
+  new THREE.Float32BufferAttribute(positions, 3)
+);
+particleGeometry.setAttribute("uv", particleShape.attributes.uv);
+const particleMaterial = new THREE.PointsMaterial({
+  color: 0xffffff,
+  size: 0.1,
+});
+const particles = new THREE.Points(particleGeometry, particleMaterial);
+scene.add(particles);
 
 // Light 1
 const light = new THREE.PointLight(0xdfccaf, 1, 100);
@@ -62,7 +85,7 @@ controls.enableDamping = true;
 controls.enablePan = false;
 controls.enableZoom = false;
 controls.autoRotate = true;
-controls.autoRotateSpeed = 3;
+controls.autoRotateSpeed = 1;
 
 // Resize
 window.addEventListener("resize", () => {
@@ -112,12 +135,12 @@ window.addEventListener("mousemove", (e) => {
 });
 
 // Touch animation color for mobile
-let touchStart = false
-window.addEventListener("touchstart",()=>(touchStart=true));
-window.addEventListener("touchend",()=>(touchStart=false));
+let touchStart = false;
+window.addEventListener("touchstart", () => (touchStart = true));
+window.addEventListener("touchend", () => (touchStart = false));
 
-window.addEventListener("touchmove",(e)=>{
-  if(touchStart) {
+window.addEventListener("touchmove", (e) => {
+  if (touchStart) {
     rgb = [
       Math.floor(Math.random() * 256),
       Math.floor(Math.random() * 256),
@@ -131,4 +154,4 @@ window.addEventListener("touchmove",(e)=>{
       b: newColor.b,
     });
   }
-})
+});
